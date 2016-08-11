@@ -1,0 +1,176 @@
+﻿<Page
+    x:Class="MPKMonitor.PivotPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MPKMonitor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:MPKMonitor.Data"
+    mc:Ignorable="d"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    Background="White">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True"/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid>
+        <StackPanel Background="#FF9ACD32" Height="155" VerticalAlignment="Top" Margin="0,-50,0,0" />
+        <StackPanel Background="White" VerticalAlignment="Stretch" Margin="0,105,0,0" />
+        <Pivot x:Uid="Pivot" Title="PEKA Monitor" x:Name="pivot" 
+               CommonNavigationTransitionInfo.IsStaggerElement="True" >
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Background="#FF9ACD32">
+                        <TextBlock Text="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <!--Pivot item one-->
+            <PivotItem
+                x:Uid="PivotItem1"
+                Margin="0,0,0,0"
+                Header="Ulubione"
+                CommonNavigationTransitionInfo.IsStaggerElement="True" Background="White">
+                <!--Double line list with text wrapping-->
+                <ScrollViewer>
+                    <StackPanel x:Name="spFavouriteList" >
+                       
+                        <!--<Button x:Name="btAPIPoznanGetStops" Content="TEST" Background="#FF0C0B0B" Click="btAPIPoznanGetStops_Click" />-->
+                        <TextBlock x:Uid="tbClearFavouriteList" x:Name="tbClearFavouriteList" 
+                                   Margin="15"
+                                   TextWrapping="Wrap" Foreground="#FF9ACD32" 
+                                   FontSize="23" FontWeight="Bold" FontFamily="Segoe WP Semibold"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+
+            <!--Pivot item two-->
+            <PivotItem x:Name="piStops"
+                x:Uid="piStops"
+                Margin="0,0,0,0"
+                Header="Przystanki"
+                Background="White">
+                <!--Double line list no text wrapping-->
+                <StackPanel>
+                    <TextBox x:Name="tbStopsSearch" TextChanged="tbStopsSearch_TextChanged" HorizontalAlignment="Stretch" Margin="19,0,19,0" Background="#FFDCD8D8" Text="" PlaceholderText="wpisz nazwę przystanku..."/>
+                    <TextBlock x:Name="labelHistoria" Text="Historia:" Foreground="#FF9ACD32" Margin="20,5,0,0" 
+                               FontSize="15" FontWeight="Normal" FontFamily="Segoe WP Semibold"/>
+                    <ListView x:Name="lvStops"
+                    IsItemClickEnabled="True"
+                    ItemClick="lvStops_ItemClick"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True" 
+                    Margin="0,10,0,0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5,5,5,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="0" Margin="15,0,0,0"
+                                    Text="{Binding Name}" VerticalAlignment="Center"
+                                    Pivot.SlideInAnimationGroup="1"
+                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
+                                    Style="{StaticResource ListViewItemTextBlockStyle}" 
+                                               Foreground="#FF9ACD32" 
+                                               FontSize="23" FontWeight="Bold" FontFamily="Segoe WP Semibold"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center"
+                                    Text="{Binding Symbol}"
+                                    Pivot.SlideInAnimationGroup="2"
+                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
+                                    Style="{StaticResource ListViewItemContentTextBlockStyle}" Foreground="#FF9ACD32" FontSize="14"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </PivotItem>
+
+            <PivotItem x:Name="piLines"
+                x:Uid="piLines"
+                Margin="0,0,0,0"
+                Header="Linie"
+                       Background="White">
+                <StackPanel>
+                    <TextBox InputScope="CurrencyAmountAndSymbol" x:Name="tbLineSearch" TextChanged="tbLineSearch_TextChanged" HorizontalAlignment="Stretch" Margin="19,0,19,0" Background="#FFDCD8D8" PlaceholderText="wpisz nazwę linii..."/>
+                    <TextBlock x:Name="labelpiLinesHistoria" Text="Historia:" Foreground="#FF9ACD32" Margin="20,5,0,0" 
+                               FontSize="15" FontWeight="Normal" FontFamily="Segoe WP Semibold"/>
+                    <ListView x:Name="lvLine"
+                    IsItemClickEnabled="True"
+                    ItemClick="lvLines_ItemClick"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True" Margin="0,10,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="19,0,0,9.5">
+                                    <TextBlock
+                                    Text="{Binding Name}" Foreground="#FF9ACD32" 
+                                    Pivot.SlideInAnimationGroup="1"
+                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
+                                    Style="{StaticResource ListViewItemTextBlockStyle}"
+                                        FontSize="23" FontWeight="Bold" FontFamily="Segoe WP Semibold"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </PivotItem>
+
+            <PivotItem x:Name="piStreets"
+                x:Uid="piStreets"
+                Margin="0,0,0,0"
+                Header="Ulice" Background="White">
+                <!--Double line list no text wrapping-->
+                <StackPanel>
+                    <TextBox x:Name="tbStreetsSearch" TextChanged="tbStreetsSearch_TextChanged" HorizontalAlignment="Stretch" Margin="19,0,19,0" Background="#FFDCD8D8" PlaceholderText="wpisz nazwę ulicy..."/>
+                    <TextBlock x:Name="labelpiStreetsHistoria" Text="Historia:" Foreground="#FF9ACD32" Margin="20,5,0,0" 
+                               FontSize="15" FontWeight="Normal" FontFamily="Segoe WP Semibold"/>
+                    <ListView x:Name="lvStreets"
+                    IsItemClickEnabled="True"
+                    ItemClick="lvStreets_ItemClick"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True" Margin="0,10,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="19,0,0,9.5">
+                                    <TextBlock
+                                    Text="{Binding Name}"
+                                    Pivot.SlideInAnimationGroup="1"
+                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
+                                    Style="{StaticResource ListViewItemTextBlockStyle}" Foreground="#FF9ACD32" 
+                                    FontSize="23" FontWeight="Bold" FontFamily="Segoe WP Semibold"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </PivotItem>
+
+            <PivotItem x:Name="piAbout"
+                x:Uid="piAbout"
+                Margin="0,0,0,0"
+                Header="O aplikacji">
+                <StackPanel >
+                    <TextBlock x:Uid="tbAbout" x:Name="tbAbout" Margin="19,10,19,0"
+                               Style="{StaticResource ListViewItemContentTextBlockStyle}" 
+                               VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                               TextWrapping="Wrap" FontSize="17" FontWeight="Bold" FontFamily="Segoe WP Semibold" Foreground="YellowGreen">
+                    </TextBlock>
+                </StackPanel>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
+  <Identity Name="28619stojexlab.PEKAMonitor" Publisher="CN=D0E17168-33F1-475D-86CB-FFB868B5EFE1" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="a8ab7f5f-1856-4371-8659-0c4dd1e65bbb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>PEKA Monitor</DisplayName>
+    <PublisherDisplayName>stojexlab</PublisherDisplayName>
+    <Logo>Assets\50x50.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.1</OSMinVersion>
+    <OSMaxVersionTested>6.3.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="PEKAMonitor.App">
+      <m3:VisualElements DisplayName="PEKA Monitor" Square150x150Logo="Assets\150x150.png" Square44x44Logo="Assets\44x44.png" Description="PEKA Monitor" ForegroundText="light" BackgroundColor="transparent">
+        <m3:LockScreen Notification="badge" BadgeLogo="Assets\24x24.png" />
+        <m3:DefaultTile Square71x71Logo="Assets\71x71.png" Wide310x150Logo="Assets\310x150.png">
+          <m3:ShowNameOnTiles>
+            <m3:ShowOn Tile="square150x150Logo" />
+            <m3:ShowOn Tile="wide310x150Logo" />
+          </m3:ShowNameOnTiles>
+        </m3:DefaultTile>
+      </m3:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClientServer" />
+  </Capabilities>
+</Package>
