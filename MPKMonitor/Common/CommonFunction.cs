@@ -35,7 +35,7 @@ namespace MPKMonitor.Common
       }
       catch (Exception ex)
       {
-        SendException(ex, "Pattern: " + pattern);
+        SendException(ex, "Pattern: " + pattern,"");
       }
       
       return pattern;
@@ -54,7 +54,7 @@ namespace MPKMonitor.Common
       }
       catch (Exception ex)
       {
-        SendException(ex,"");
+        SendException(ex,"","");
       }
     }
 
@@ -63,7 +63,7 @@ namespace MPKMonitor.Common
     /// </summary>
     /// <param name="ex">Exception</param>
     /// <param name="AdditionalInfo">Additional infos</param>
-    public static async void SendException(Exception ex, string AdditionalInfo)
+    public static async void SendException(Exception ex, string AdditionalInfo, string AdditionalInfo2)
     {
       try
       {
@@ -79,6 +79,8 @@ namespace MPKMonitor.Common
         mail.Body = ex.ToString();
         mail.Body += "\n==================================================\n";
         mail.Body += AdditionalInfo;
+        mail.Body += "\n==================================================\n";
+        mail.Body += AdditionalInfo2;
 
         // Add recipients to the mail object
         mail.To.Add(sendTo);

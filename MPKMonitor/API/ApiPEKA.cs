@@ -142,43 +142,46 @@ namespace MPKMonitor.API
 
       var response = await client.PostAsync(url, content);
       var responseString = await response.Content.ReadAsStringAsync();
-      if (responseString != "")
+      
+      bool test1 = responseString.Contains("failure");
+
+      if (responseString != "" && !test1)
       {
         string jsonText = Convert.ToString(responseString);
 
-      JsonObject jsonObject = JsonObject.Parse(jsonText);
-      JsonObject jsonObjecd = jsonObject["success"].GetObject();
-      JsonArray jsonArray = jsonObjecd["bollards"].GetArray();
+        JsonObject jsonObject = JsonObject.Parse(jsonText);
+        JsonObject jsonObjecd = jsonObject["success"].GetObject();
+        JsonArray jsonArray = jsonObjecd["bollards"].GetArray();
 
-      foreach (JsonValue bollardsValue in jsonArray)
-      {
-        JsonObject groupObject = bollardsValue.GetObject();
-        ObservableCollection<Directions> OCDirections = new ObservableCollection<Directions>();
-
-        foreach (JsonValue directionsValue in groupObject["directions"].GetArray())
+        foreach (JsonValue bollardsValue in jsonArray)
         {
-          JsonObject itemObject = directionsValue.GetObject();
-          Directions Kierunki = new Directions(itemObject["returnVariant"].GetBoolean(),
-                                               itemObject["direction"].GetString(),
-                                               itemObject["lineName"].GetString());
-          OCDirections.Add(Kierunki);
+          JsonObject groupObject = bollardsValue.GetObject();
+          ObservableCollection<Directions> OCDirections = new ObservableCollection<Directions>();
+
+          foreach (JsonValue directionsValue in groupObject["directions"].GetArray())
+          {
+            JsonObject itemObject = directionsValue.GetObject();
+            Directions Kierunki = new Directions(itemObject["returnVariant"].GetBoolean(),
+                                                 itemObject["direction"].GetString(),
+                                                 itemObject["lineName"].GetString());
+            OCDirections.Add(Kierunki);
+          }
+
+          JsonObject bollardValue = groupObject.GetObject().GetNamedObject("bollard");
+          Bollard Bolla = new Bollard(bollardValue["symbol"].GetString(),
+                                      bollardValue["tag"].GetString(),
+                                      bollardValue["name"].GetString(),
+                                      bollardValue["mainBollard"].GetBoolean());
+
+          Bollards BollardsItem = new Bollards(OCDirections, Bolla);
+          this.OCBollards.Add(BollardsItem);
         }
-
-        JsonObject bollardValue = groupObject.GetObject().GetNamedObject("bollard");
-        Bollard Bolla = new Bollard(bollardValue["symbol"].GetString(),
-                                    bollardValue["tag"].GetString(),
-                                    bollardValue["name"].GetString(),
-                                    bollardValue["mainBollard"].GetBoolean());
-
-        Bollards BollardsItem = new Bollards(OCDirections, Bolla);
-        this.OCBollards.Add(BollardsItem);
       }
-    }
       else
       {
         throw new System.Net.WebException();
       }
-}
+    }
 
     private async Task getBollardsByStreetDataAsync(string jsonContent)
     {
@@ -191,38 +194,40 @@ namespace MPKMonitor.API
 
       var response = await client.PostAsync(url, content);
       var responseString = await response.Content.ReadAsStringAsync();
-      if (responseString != "")
+      bool test1 = responseString.Contains("failure");
+
+      if (responseString != "" && !test1)
       {
         string jsonText = Convert.ToString(responseString);
 
-      JsonObject jsonObject = JsonObject.Parse(jsonText);
-      JsonObject jsonObjecd = jsonObject["success"].GetObject();
-      JsonArray jsonArray = jsonObjecd["bollards"].GetArray();
+        JsonObject jsonObject = JsonObject.Parse(jsonText);
+        JsonObject jsonObjecd = jsonObject["success"].GetObject();
+        JsonArray jsonArray = jsonObjecd["bollards"].GetArray();
 
-      foreach (JsonValue bollardsValue in jsonArray)
-      {
-        JsonObject groupObject = bollardsValue.GetObject();
-        ObservableCollection<Directions> OCDirections = new ObservableCollection<Directions>();
-
-        JsonObject bollardValue = groupObject.GetObject().GetNamedObject("bollard");
-        Bollard Bolla = new Bollard(bollardValue["symbol"].GetString(),
-                                    bollardValue["tag"].GetString(),
-                                    bollardValue["name"].GetString(),
-                                    bollardValue["mainBollard"].GetBoolean());
-
-
-        foreach (JsonValue directionsValue in groupObject["directions"].GetArray())
+        foreach (JsonValue bollardsValue in jsonArray)
         {
-          JsonObject itemObject = directionsValue.GetObject();
-          Directions Kierunki = new Directions(itemObject["returnVariant"].GetBoolean(),
-                                               itemObject["direction"].GetString(),
-                                               itemObject["lineName"].GetString());
-          OCDirections.Add(Kierunki);
-        }
+          JsonObject groupObject = bollardsValue.GetObject();
+          ObservableCollection<Directions> OCDirections = new ObservableCollection<Directions>();
 
-        Bollards BollardsItem = new Bollards(OCDirections, Bolla);
-        this.OCBollards.Add(BollardsItem);
-      }
+          JsonObject bollardValue = groupObject.GetObject().GetNamedObject("bollard");
+          Bollard Bolla = new Bollard(bollardValue["symbol"].GetString(),
+                                      bollardValue["tag"].GetString(),
+                                      bollardValue["name"].GetString(),
+                                      bollardValue["mainBollard"].GetBoolean());
+
+
+          foreach (JsonValue directionsValue in groupObject["directions"].GetArray())
+          {
+            JsonObject itemObject = directionsValue.GetObject();
+            Directions Kierunki = new Directions(itemObject["returnVariant"].GetBoolean(),
+                                                 itemObject["direction"].GetString(),
+                                                 itemObject["lineName"].GetString());
+            OCDirections.Add(Kierunki);
+          }
+
+          Bollards BollardsItem = new Bollards(OCDirections, Bolla);
+          this.OCBollards.Add(BollardsItem);
+        }
       }
       else
       {
@@ -241,46 +246,48 @@ namespace MPKMonitor.API
 
       var response = await client.PostAsync(url, content);
       var responseString = await response.Content.ReadAsStringAsync();
-      if (responseString != "")
+      bool test1 = responseString.Contains("failure");
+
+      if (responseString != "" && !test1)
       {
         string jsonText = Convert.ToString(responseString);
 
-      JsonObject jsonObject = JsonObject.Parse(jsonText);
-      JsonObject jsonObjecd = jsonObject["success"].GetObject();
-      JsonArray jsonArray = jsonObjecd["directions"].GetArray();
+        JsonObject jsonObject = JsonObject.Parse(jsonText);
+        JsonObject jsonObjecd = jsonObject["success"].GetObject();
+        JsonArray jsonArray = jsonObjecd["directions"].GetArray();
 
-      foreach (JsonValue directionsValue in jsonArray)
-      {
-        JsonObject groupObject = directionsValue.GetObject();
-        ObservableCollection<BollardOrder> OCBollardsOrder = new ObservableCollection<BollardOrder>();
-
-        JsonObject DirectiValue = groupObject["direction"].GetObject();
-        Directions Directi = new Directions(DirectiValue["returnVariant"].GetBoolean(),
-                                             DirectiValue["direction"].GetString(),
-                                             DirectiValue["lineName"].GetString());
-
-
-        JsonArray cos = groupObject["bollards"].GetArray();
-        foreach (JsonValue bollardValue in cos)
+        foreach (JsonValue directionsValue in jsonArray)
         {
-          JsonObject itemObject = bollardValue.GetObject();
-          BollardOrder Kierunki = new BollardOrder(itemObject["orderNo"].GetNumber(),
-                                                   itemObject["symbol"].GetString(),
-                                                   itemObject["tag"].GetString(),
-                                                   itemObject["name"].GetString(),
-                                                   itemObject["mainBollard"].GetBoolean());
-          OCBollardsOrder.Add(Kierunki);
-        }
+          JsonObject groupObject = directionsValue.GetObject();
+          ObservableCollection<BollardOrder> OCBollardsOrder = new ObservableCollection<BollardOrder>();
 
-        BollardsOrder BollardsItem = new BollardsOrder(Directi, OCBollardsOrder);
-        this.OCBollardsOrder.Add(BollardsItem);
+          JsonObject DirectiValue = groupObject["direction"].GetObject();
+          Directions Directi = new Directions(DirectiValue["returnVariant"].GetBoolean(),
+                                               DirectiValue["direction"].GetString(),
+                                               DirectiValue["lineName"].GetString());
+
+
+          JsonArray cos = groupObject["bollards"].GetArray();
+          foreach (JsonValue bollardValue in cos)
+          {
+            JsonObject itemObject = bollardValue.GetObject();
+            BollardOrder Kierunki = new BollardOrder(itemObject["orderNo"].GetNumber(),
+                                                     itemObject["symbol"].GetString(),
+                                                     itemObject["tag"].GetString(),
+                                                     itemObject["name"].GetString(),
+                                                     itemObject["mainBollard"].GetBoolean());
+            OCBollardsOrder.Add(Kierunki);
+          }
+
+          BollardsOrder BollardsItem = new BollardsOrder(Directi, OCBollardsOrder);
+          this.OCBollardsOrder.Add(BollardsItem);
+        }
       }
-    }
       else
       {
         throw new System.Net.WebException();
       }
-}
+    }
 
     private async Task GetDeparturesDataAsync(string jsonContent)
     {
@@ -294,7 +301,9 @@ namespace MPKMonitor.API
       var response = await client.PostAsync(url, content);
       var responseString = await response.Content.ReadAsStringAsync();
 
-      if (responseString != "")
+      bool test1 = responseString.Contains("failure");
+
+      if (responseString != "" && !test1)
       {
         string jsonText = Convert.ToString(responseString);
 
@@ -344,7 +353,9 @@ namespace MPKMonitor.API
 
       var response = await client.PostAsync(url, content);
       var responseString = await response.Content.ReadAsStringAsync();
-      if (responseString != "")
+      bool test1 = responseString.Contains("failure");
+
+      if (responseString != "" && !test1)
       {
         string jsonText = Convert.ToString(responseString);
 
@@ -375,7 +386,9 @@ namespace MPKMonitor.API
 
       var response = await client.PostAsync(url, content);
       var responseString = await response.Content.ReadAsStringAsync();
-      if (responseString != "")
+      bool test1 = responseString.Contains("failure");
+
+      if (responseString != "" && !test1)
       {
         string jsonText = Convert.ToString(responseString);
 
@@ -407,7 +420,9 @@ namespace MPKMonitor.API
 
       var response = await client.PostAsync(url, content);
       var responseString = await response.Content.ReadAsStringAsync();
-      if (responseString != "")
+      bool test1 = responseString.Contains("failure");
+
+      if (responseString != "" && !test1)
       {
 
         string jsonText = Convert.ToString(responseString);

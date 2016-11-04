@@ -139,13 +139,18 @@ namespace MPKMonitor
         }
         catch (Exception ex)
         {
-          if (ex is System.Net.WebException)
+          //using Windows.Data.Json;
+          if (ex.Message.Contains("JSON"))
+          {
+            CommonFunction.MessageBoxShow("Błędna odpowiedź z serwera PEKA. Spróbuj ponownie.");
+          }
+          else if (ex is System.Net.WebException)
           {
             CommonFunction.MessageBoxShow("Problem z pobraniem danych. Sprawdź połączenie internetowe. \nByć może system PEKA nie działa.");
           }
           else
           {
-            CommonFunction.SendException(ex, "jssonContent: " + jsonContent);
+            CommonFunction.SendException(ex, "jssonContent: " + jsonContent,"");
           }
         }
       }
@@ -208,7 +213,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, "arg: " + arg);
+        CommonFunction.SendException(ex, "arg: " + arg, "");
       }
     }
 
@@ -227,7 +232,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, "_bollard.Name: " + _bollard.Name.ToString());
+        CommonFunction.SendException(ex, "_bollard.Name: " + _bollard.Name.ToString(), "");
       }
     }
 
@@ -247,7 +252,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, zapis);
+        CommonFunction.SendException(ex, zapis, "");
       }  
     }
   }

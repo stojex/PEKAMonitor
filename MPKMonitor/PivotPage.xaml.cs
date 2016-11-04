@@ -147,7 +147,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, "");
+        CommonFunction.SendException(ex, "", "");
       }
 
     }
@@ -281,7 +281,7 @@ namespace MPKMonitor
           }
           else
           {
-            CommonFunction.SendException(ex, "jssonContent: " + jsonContent);
+            CommonFunction.SendException(ex, "jssonContent: " + jsonContent, "");
           }
         }
       }
@@ -311,7 +311,7 @@ namespace MPKMonitor
           }
           else
           {
-            CommonFunction.SendException(ex, "jsonContent: " + jsonContent);
+            CommonFunction.SendException(ex, "jsonContent: " + jsonContent, "");
           }
         }
       }
@@ -340,7 +340,7 @@ namespace MPKMonitor
           }
           else
           {
-            CommonFunction.SendException(ex, "jssonContent: " + jsonContent);
+            CommonFunction.SendException(ex, "jssonContent: " + jsonContent, "");
           }
         }
       }
@@ -446,7 +446,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, zapis);
+        CommonFunction.SendException(ex, zapis, "");
       }
     }
 
@@ -467,7 +467,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, "");
+        CommonFunction.SendException(ex, "", "");
       }
     }
 
@@ -509,7 +509,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, zapis);
+        CommonFunction.SendException(ex, zapis, "");
       }
     }
 
@@ -530,7 +530,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, "");
+        CommonFunction.SendException(ex, "", "");
       }
     }
 
@@ -572,7 +572,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, zapis);
+        CommonFunction.SendException(ex, zapis, "");
       }
     }
 
@@ -593,7 +593,7 @@ namespace MPKMonitor
       }
       catch (Exception ex)
       {
-        CommonFunction.SendException(ex, "");
+        CommonFunction.SendException(ex, "", "");
       }
     }
 
