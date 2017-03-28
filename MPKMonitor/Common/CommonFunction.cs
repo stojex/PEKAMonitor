@@ -14,7 +14,7 @@ namespace MPKMonitor.Common
     {
       var ts1 = DateTime.Now - new DateTime(1970, 1, 1);
       string ts = Convert.ToInt64(ts1.TotalMilliseconds).ToString();
-      string url = "http://www.peka.poznan.pl/vm/method.vm?ts=" + ts;
+      string url = "https://www.peka.poznan.pl/vm/method.vm?ts=" + ts;
 
       return url;
     }
